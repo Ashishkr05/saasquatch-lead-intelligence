@@ -1,5 +1,7 @@
 # Scout — SaaSquatch Lead Intelligence
 
+[![CI](https://github.com/Ashishkr05/saasquatch-lead-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/Ashishkr05/saasquatch-lead-intelligence/actions/workflows/ci.yml)
+
 > Turn 1,000 sourced companies into the 20 companies worth calling first.
 
 Scout is an acquisition-fit scoring and lead-qualification layer designed for the workflow immediately after company discovery. A searcher imports a lead list, defines an acquisition thesis, and receives a transparent outreach queue with score reasons, data-quality warnings, red flags, a rule-based acquisition rationale, and a personalized outreach angle.
