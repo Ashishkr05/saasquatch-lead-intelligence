@@ -2,6 +2,10 @@
 
 [![CI](https://github.com/Ashishkr05/saasquatch-lead-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/Ashishkr05/saasquatch-lead-intelligence/actions/workflows/ci.yml)
 
+**[Live demo](https://saasquatch-lead-intelligence-1.onrender.com/)** · [API health](https://saasquatch-lead-intelligence.onrender.com/health) · [Interactive API docs](https://saasquatch-lead-intelligence.onrender.com/docs)
+
+The API uses Render's free service tier, so the first request after inactivity can take about a minute while the service wakes up.
+
 > Turn 1,000 sourced companies into the 20 companies worth calling first.
 
 Scout is an acquisition-fit scoring and lead-qualification layer designed for the workflow immediately after company discovery. A searcher imports a lead list, defines an acquisition thesis, and receives a transparent outreach queue with score reasons, data-quality warnings, red flags, a rule-based acquisition rationale, and a personalized outreach angle.
@@ -257,27 +261,25 @@ At production scale:
 
 This keeps the five-hour version honest while showing a concrete scaling path.
 
-## Deployment: DigitalOcean Ubuntu server
+## Deployment
 
-The selected challenge deployment target is a **DigitalOcean Basic Droplet running Ubuntu 24.04**. This is intentionally a simple, economical single-server architecture appropriate for a demo and early workload.
+The public challenge demo uses **Render and Neon**:
 
-- Hosting model: Nginx serves the compiled React application as static files; FastAPI runs as a long-lived container, not a serverless function.
-- Data: PostgreSQL 16 runs on the private Compose network with a persistent Docker volume.
-- Routing: the public Nginx container serves the SPA and proxies `/api` to FastAPI, preserving a same-origin browser contract.
-- Operations: Docker Compose builds and starts the three services; container health checks gate startup ordering.
-- TLS: host-level Caddy or Nginx terminates HTTPS and proxies to the frontend container on port 8080.
-- Network boundary: Compose binds ports 8080 and 8000 to host loopback only; PostgreSQL is never published. The host TLS proxy is the sole public entry point.
+- Render Static Sites builds and hosts the React application.
+- Render Web Services runs FastAPI on Python 3.12 and exposes the health and API endpoints.
+- Neon provides managed PostgreSQL with encrypted connections and persistent demo data.
+- Render supplies HTTPS for both public services. `VITE_API_URL` connects the static build to the API, and `CORS_ORIGINS` restricts browser access to the deployed frontend.
+- Both services deploy automatically from `main`; secrets remain in provider environment variables and are never committed.
 
-1. Provision a DigitalOcean Basic Droplet with Ubuntu 24.04.
-2. Install Docker Engine and the Compose plugin.
-3. Clone the repository and copy `.env.example` to `.env`.
-4. Replace the demo database password and set `CORS_ORIGINS` to the public HTTPS origin.
-5. Run `docker compose up -d --build`.
-6. Place Caddy, Traefik, or host Nginx in front of ports 8080/8000 for TLS and `/api` routing.
-7. Keep the Compose port bindings on `127.0.0.1`; PostgreSQL is intentionally not published at all.
-8. Add daily database backups, container health monitoring, and error reporting before handling live outreach data.
+The repository also includes a portable single-server deployment. Docker Compose builds Nginx, FastAPI, and PostgreSQL; health-gated startup ensures the database is ready before the API and the API before the frontend. Ports bind to host loopback so a host-level Caddy or Nginx proxy can be the only public entry point. On an Ubuntu server:
 
-For a production expansion, migrate PostgreSQL to DigitalOcean Managed Databases, place Spaces/CDN in front of static assets, and run the API on DigitalOcean App Platform or Kubernetes only when the workload justifies that complexity. The initial challenge deployment remains a single Droplet.
+1. Install Docker Engine and the Compose plugin.
+2. Clone the repository and copy `.env.example` to `.env`.
+3. Replace the demo database password and configure the public CORS origin.
+4. Run `docker compose up -d --build`.
+5. Terminate HTTPS with Caddy or Nginx in front of `127.0.0.1:8080`.
+
+For a production workload, I would move beyond free-tier hosting, add automated database backups and error monitoring, and use a managed PostgreSQL plan with an explicit availability and recovery policy.
 
 ## Testing
 
