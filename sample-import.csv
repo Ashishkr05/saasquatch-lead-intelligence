@@ -1,0 +1,4 @@
+company_name,domain,website,industry,location,employee_count,year_founded,owner_name,owner_title,email,phone,description,estimated_revenue_m,institutionally_backed,source
+Redwood Technical Services,redwoodtechnical.example,https://redwoodtechnical.example,Industrial Services,"Dallas, Texas",27,2004,Chris Walker,Founder,chris@redwoodtechnical.example,+1-214-555-0128,"Recurring equipment maintenance for regional manufacturers",6.4,false,Sample CSV
+Palm Coast Facility Solutions,palmcoastfacility.example,https://palmcoastfacility.example,Facility Services,"West Palm Beach, Florida",41,2008,Amanda Cole,President,amanda@palmcoastfacility.example,+1-561-555-0104,"Commercial facility maintenance and compliance services",9.2,false,Sample CSV
+
