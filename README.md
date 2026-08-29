@@ -349,7 +349,6 @@ Additional production steps would include HubSpot/Salesforce export, third-party
 │   └── tests/               # Deterministic scoring tests
 ├── frontend/
 │   └── src/                 # React application and typed API client
-├── docs/                    # Concise walkthrough video script
 ├── docker-compose.yml
 ├── sample-import.csv
 └── .env.example
