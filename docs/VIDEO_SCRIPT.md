@@ -8,7 +8,7 @@
 >
 > From there, the user can shortlist, review, reject, import deduplicated CSV data, and export a sales-ready shortlist.
 >
-> Technically, this is React and TypeScript, FastAPI, PostgreSQL, Nginx, and Docker Compose. The scoring engine is isolated and covered by automated tests.
+> Technically, this is React and TypeScript, FastAPI, and PostgreSQL. The live demo runs on Render with Neon Postgres, while Docker Compose provides a portable Nginx, API, and database stack. The scoring engine is isolated and covered by automated tests.
 >
 > The product decision was not to maximize lead volume. It was to help a searcher spend limited time on companies most likely to produce useful owner conversations.
 >
